@@ -117,7 +117,10 @@ const FoodDetails = () => {
               alt={food_name}
               className="w-full h-[450px] object-cover rounded-3xl shadow-lg my-8"
             />
-            <p className="text-gray-600 text-lg">by {authorImg}</p>
+            <p className="text-gray-600 text-lg">
+              by{" "}
+              <span className="font-medium">{food.author || "Anonymous"}</span>
+            </p>
 
             <div className="grid grid-cols-2 gap-8 text-lg">
               <div>
@@ -146,19 +149,19 @@ const FoodDetails = () => {
             </p>
 
             <div className="flex flex-wrap gap-5 pt-6">
-              <Link
+              {/* <Link
                 to={`/update-foods/${_id}`}
                 className="flex items-center gap-2 px-6 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white rounded-xl"
               >
                 <Edit size={20} />
                 Update
-              </Link>
-              <Button
+              </Link> */}
+              {/* <Button
                 onClick={handleDelete}
                 className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-6 py-3 text-lg"
               >
                 <Trash size={20} /> Delete
-              </Button>
+              </Button> */}
               <Button
                 onClick={handleDownload}
                 className="flex items-center gap-2 bg-gray-700 hover:bg-gray-800 px-6 py-3 text-lg"

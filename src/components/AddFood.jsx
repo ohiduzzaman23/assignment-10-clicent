@@ -6,6 +6,7 @@ import { AuthContext } from "../contexts/AuthContext";
 const AddFood = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  console.log("addFood", user.photoURL);
 
   const handleSubmit = (e) => {
     e.preventDefault();
