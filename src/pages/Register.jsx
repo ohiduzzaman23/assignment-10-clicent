@@ -22,7 +22,7 @@ const Register = () => {
         const user = res.user;
         updateProfile(user, {
           displayName: name,
-          photoURL: photoURL || "https://via.placeholder.com/88",
+          photoURL: photoURL || "https://i.ibb.co.com/JRHCVfYB/orig.png",
         })
           .then(() => {
             console.log("Profile updated");

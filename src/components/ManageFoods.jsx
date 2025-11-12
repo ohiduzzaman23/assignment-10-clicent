@@ -128,8 +128,7 @@ const ManageFoods = () => {
                 <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                   <img
                     src={
-                      food.authorImg ||
-                      "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                      food.authorImg || "https://i.ibb.co.com/JRHCVfYB/orig.png"
                     }
                     alt={food.author || "Anonymous"}
                     className="w-5 h-5 rounded-full"

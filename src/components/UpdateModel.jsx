@@ -71,7 +71,7 @@ const UpdateModel = () => {
             type="url"
             name="photoURL"
             defaultValue={food.food_image}
-            placeholder="https://example.com/photo.jpg"
+            placeholder="Enter your photoURL"
             className="input input-bordered w-full"
             required
           />

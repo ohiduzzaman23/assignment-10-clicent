@@ -20,10 +20,7 @@ const FoodCard = ({ food }) => {
         {/* Author */}
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <img
-            src={
-              food.authorImg ||
-              "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-            }
+            src={food.authorImg || "https://i.ibb.co.com/JRHCVfYB/orig.png"}
             alt={food.author || "Anonymous"}
             className="w-5 h-5 rounded-full"
           />

@@ -6,7 +6,7 @@ import { AuthContext } from "../contexts/AuthContext";
 const AddFood = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log("addFood", user.photoURL);
+  console.log("addFood", user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,8 +39,8 @@ const AddFood = () => {
       .then((res) => res.json())
       .then((data) => {
         toast.success("Food added successfully!");
-        e.target.reset(); // Form reset
-        navigate("/manage-foods"); // Navigate to Manage Foods page
+        e.target.reset();
+        navigate("/manage-foods");
       })
       .catch((err) => {
         console.error("Error:", err);
