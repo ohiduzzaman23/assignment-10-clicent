@@ -10,19 +10,21 @@ const ManageFoods = () => {
   const [selectedFood, setSelectedFood] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
+  // Fetch foods login user
   useEffect(() => {
-    if (user?.email) {
-      fetch(`http://localhost:3000/foods?email=${user.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setFoods(data);
-          setLoading(false);
-        })
-        .catch(() => {
-          toast.error("Failed to load foods!");
-          setLoading(false);
-        });
-    }
+    if (!user?.email) return;
+
+    setLoading(true);
+    fetch(`http://localhost:3000/foods?authorEmail=${user.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFoods(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        toast.error("Failed to load foods!");
+        setLoading(false);
+      });
   }, [user?.email]);
 
   // Delete food
@@ -35,16 +37,18 @@ const ManageFoods = () => {
         if (data.deletedCount > 0) {
           toast.success("Food deleted successfully!");
           setFoods((prev) => prev.filter((f) => f._id !== id));
+        } else {
+          toast.error("Deletion failed!");
         }
       })
       .catch(() => toast.error("Failed to delete food."));
   };
 
-  // Update food submit
+  // Update food
   const handleUpdate = (e) => {
     e.preventDefault();
     const form = e.target;
-    const formData = {
+    const updatedData = {
       food_name: form.food_name.value,
       food_image: form.food_image.value,
       food_quantity: form.food_quantity.value,
@@ -56,7 +60,7 @@ const ManageFoods = () => {
     fetch(`http://localhost:3000/foods/${selectedFood._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(updatedData),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -64,7 +68,7 @@ const ManageFoods = () => {
           toast.success("Food updated successfully!");
           setFoods((prev) =>
             prev.map((f) =>
-              f._id === selectedFood._id ? { ...f, ...formData } : f
+              f._id === selectedFood._id ? { ...f, ...updatedData } : f
             )
           );
           setSelectedFood(null);
@@ -83,57 +87,92 @@ const ManageFoods = () => {
     );
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-        Manage My Foods
-      </h2>
-
-      {foods.length === 0 ? (
-        <p className="text-center text-gray-600">
-          You haven’t added any food yet.
+    <div className="bg-[#FCFBF8] min-h-screen py-10">
+      {/* Page Header */}
+      <div className="max-w-6xl mx-auto px-6 mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">Manage My Foods</h2>
+        <p className="text-gray-500 text-sm mt-1">
+          View and edit your food donations
         </p>
-      ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {foods.map((food) => (
+      </div>
+
+      <div className="max-w-6xl mx-auto space-y-6 px-6">
+        {foods.length === 0 ? (
+          <p className="text-center text-gray-600">
+            You haven’t added any food yet.
+          </p>
+        ) : (
+          foods.map((food) => (
             <div
               key={food._id}
-              className="bg-white rounded-2xl shadow-md p-4 space-y-3 border border-gray-100"
+              className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 p-4 md:p-6 flex flex-col md:flex-row items-center gap-6 border border-gray-100"
             >
-              <img
-                src={food.food_image}
-                alt={food.food_name}
-                className="rounded-xl h-48 w-full object-cover"
-              />
-              <h3 className="font-semibold text-lg">{food.food_name}</h3>
-              <p className="text-sm text-gray-600">
-                Quantity: {food.food_quantity}
-              </p>
-              <p className="text-sm text-gray-600">
-                Location: {food.pickup_location}
-              </p>
-              <p className="text-sm text-gray-600">
-                Expire: {food.expire_date}
-              </p>
+              {/* Image */}
+              <div className="w-full md:w-1/4">
+                <img
+                  src={food.food_image}
+                  alt={food.food_name}
+                  className="w-full h-44 object-cover rounded-xl"
+                />
+              </div>
 
-              <div className="flex justify-between items-center mt-3">
+              <div className="flex-1 w-full">
+                <h3 className="text-lg md:text-xl font-semibold text-gray-800">
+                  {food.food_name}
+                </h3>
+                <p className="text-sm text-gray-500 mb-2">
+                  Status:{" "}
+                  <span className="text-green-600 font-medium">Available</span>
+                </p>
+
+                {/* Author info */}
+                <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                  <img
+                    src={
+                      food.authorImg ||
+                      "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    }
+                    alt={food.author || "Anonymous"}
+                    className="w-5 h-5 rounded-full"
+                  />
+                  <span>{food.author || "Anonymous"}</span>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-y-2 text-sm text-gray-700">
+                  <p>
+                    <span className="font-medium">Quantity:</span>{" "}
+                    {food.food_quantity}
+                  </p>
+                  <p>
+                    <span className="font-medium">Pickup Location:</span>{" "}
+                    {food.pickup_location}
+                  </p>
+                  <p>
+                    <span className="font-medium">Expires On:</span>{" "}
+                    {food.expire_date}
+                  </p>
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="flex items-center gap-3 mt-4 md:mt-0">
                 <button
                   onClick={() => setSelectedFood(food)}
-                  className="btn btn-sm btn-info text-white flex items-center gap-1"
+                  className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-md hover:bg-sky-600 transition"
                 >
                   <Eye className="w-4 h-4" /> View
                 </button>
-
                 <button
                   onClick={() => handleDelete(food._id)}
-                  className="btn btn-sm btn-error text-white flex items-center gap-1"
+                  className="flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition"
                 >
                   <Trash className="w-4 h-4" /> Delete
                 </button>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
 
       {/* Modal */}
       {selectedFood && (
@@ -177,30 +216,35 @@ const ManageFoods = () => {
                   defaultValue={selectedFood.food_name}
                   className="input input-bordered w-full"
                   placeholder="Food Name"
+                  required
                 />
                 <input
                   name="food_image"
                   defaultValue={selectedFood.food_image}
                   className="input input-bordered w-full"
                   placeholder="Food Image URL"
+                  required
                 />
                 <input
                   name="food_quantity"
                   defaultValue={selectedFood.food_quantity}
                   className="input input-bordered w-full"
                   placeholder="Quantity"
+                  required
                 />
                 <input
                   name="pickup_location"
                   defaultValue={selectedFood.pickup_location}
                   className="input input-bordered w-full"
                   placeholder="Location"
+                  required
                 />
                 <input
                   name="expire_date"
                   type="date"
                   defaultValue={selectedFood.expire_date}
                   className="input input-bordered w-full"
+                  required
                 />
                 <textarea
                   name="additional_notes"

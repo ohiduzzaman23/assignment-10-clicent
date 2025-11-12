@@ -4,7 +4,7 @@ const Profile = () => {
   return (
     <div>
       <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-purple-100 via-purple-300 to-purple-300 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-sky-600 animate-bounce drop-shadow-lg">
+        <h1 className="text-5xl md:text-6xl font-bold text-sky-600 drop-shadow-lg overflow-hidden whitespace-nowrap border-r-4 border-r-sky-600 typing">
           Profile feature under development.
         </h1>
 

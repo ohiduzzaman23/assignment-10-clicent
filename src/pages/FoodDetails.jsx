@@ -88,6 +88,7 @@ const FoodDetails = () => {
         Swal.fire("Success!", "Your request has been submitted.", "success");
         form.reset();
         document.getElementById("requestModal").close();
+        navigate("/my-requests");
       })
       .catch((err) => {
         console.error(err);

@@ -2,7 +2,7 @@
 @plugin "daisyui";
 
 .my-btn {
-  @apply btn bg-sky-400 hover:bg-sky-600 w-full normal-case text-white text-base hover:shadow-sm;
+  @apply btn bg-sky-400 hover:bg-sky-600 w-full normal-case rounded-full text-white text-base hover:shadow-sm;
 }
 .navBg {
   @apply px-4 py-2.5 hover:bg-sky-400 hover:text-white;
@@ -33,4 +33,33 @@
 
 .menu li > *.active {
   transform: none !important;
+}
+
+.typing {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 4px solid #0ea5e9;
+  animation: typing 3s steps(40, end) forwards,
+    blinkCaret 0.75s step-end infinite;
+  max-width: 100%;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes blinkCaret {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #0ea5e9;
+  }
 }

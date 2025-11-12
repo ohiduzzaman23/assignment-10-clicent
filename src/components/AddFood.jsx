@@ -18,13 +18,9 @@ const AddFood = () => {
       expire_date: e.target.expireDate.value,
       additional_notes: e.target.notes.value,
 
-      donator: {
-        name: user?.displayName || "Anonymous User",
-        email: user?.email || "unknown@example.com",
-        image:
-          user?.photoURL ||
-          "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-      },
+      author: user?.displayName || "Anonymous",
+      authorImg: user?.photoURL || "https://via.placeholder.com/88",
+      authorEmail: user?.email,
     };
 
     fetch("http://localhost:3000/foods", {
@@ -36,7 +32,7 @@ const AddFood = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Added Food:", data);
+        console.log(data);
         toast.success("Food added successfully!");
         navigate("/available-foods");
       })
