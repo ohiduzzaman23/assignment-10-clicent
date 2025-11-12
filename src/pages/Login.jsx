@@ -9,8 +9,11 @@ import {
 import { auth } from "../firebase/firebase.config";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   console.log(user);
@@ -90,17 +93,24 @@ const Login = () => {
               />
             </div>
 
-            <div>
+            <div className="relative">
               <label className="block text-sm font-medium mb-1 text-gray-700">
                 Password
               </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="********"
                 className="input input-bordered w-full bg-white text-gray-700"
                 required
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-11 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700 z-50"
+              >
+                {showPassword ? <HiEye size={20} /> : <HiEyeOff size={20} />}
+              </button>
             </div>
 
             <button type="submit" className="btn my-btn w-full">

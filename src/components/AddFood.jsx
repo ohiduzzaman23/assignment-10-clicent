@@ -10,6 +10,11 @@ const AddFood = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!user?.email) {
+      toast.error("You must be logged in to add food!");
+      return;
+    }
+
     const formData = {
       food_name: e.target.food_name.value,
       food_image: e.target.photoURL.value,
@@ -18,9 +23,9 @@ const AddFood = () => {
       expire_date: e.target.expireDate.value,
       additional_notes: e.target.notes.value,
 
-      author: user?.displayName || "Anonymous",
-      authorImg: user?.photoURL || "https://via.placeholder.com/88",
-      authorEmail: user?.email,
+      author: user.displayName || "Anonymous",
+      authorImg: user.photoURL || "https://via.placeholder.com/88",
+      authorEmail: user.email,
     };
 
     fetch("http://localhost:3000/foods", {
@@ -32,9 +37,9 @@ const AddFood = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         toast.success("Food added successfully!");
-        navigate("/available-foods");
+        e.target.reset(); // Form reset
+        navigate("/manage-foods"); // Navigate to Manage Foods page
       })
       .catch((err) => {
         console.error("Error:", err);
@@ -74,7 +79,7 @@ const AddFood = () => {
           <input
             type="url"
             name="photoURL"
-            placeholder="https://example.com/photo.jpg"
+            placeholder="Enter Your PhotoURL"
             className="input input-bordered w-full"
             required
           />

@@ -111,6 +111,11 @@ const Navbar = () => {
                     {user?.displayName || "User"}
                   </p>
                 </li>
+                <li>
+                  <p className="font-semibold text-center">
+                    {user?.email || "User"}
+                  </p>
+                </li>
                 <div className="divider my-1"></div>
 
                 <li>

@@ -10,19 +10,19 @@ const ManageFoods = () => {
   const [selectedFood, setSelectedFood] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Fetch foods login user
+  // Fetch only logged-in user's foods
   useEffect(() => {
     if (!user?.email) return;
 
     setLoading(true);
-    fetch(`http://localhost:3000/foods?authorEmail=${user.email}`)
+    fetch(`http://localhost:3000/manage-foods?authorEmail=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setFoods(data);
         setLoading(false);
       })
       .catch(() => {
-        toast.error("Failed to load foods!");
+        toast.error("Failed to load your foods!");
         setLoading(false);
       });
   }, [user?.email]);
@@ -76,7 +76,8 @@ const ManageFoods = () => {
         } else {
           toast.error("Update failed!");
         }
-      });
+      })
+      .catch(() => toast.error("Failed to update food."));
   };
 
   if (loading)
@@ -96,6 +97,7 @@ const ManageFoods = () => {
         </p>
       </div>
 
+      {/* Food Cards */}
       <div className="max-w-6xl mx-auto space-y-6 px-6">
         {foods.length === 0 ? (
           <p className="text-center text-gray-600">
@@ -116,16 +118,13 @@ const ManageFoods = () => {
                 />
               </div>
 
+              {/* Info */}
               <div className="flex-1 w-full">
                 <h3 className="text-lg md:text-xl font-semibold text-gray-800">
                   {food.food_name}
                 </h3>
-                <p className="text-sm text-gray-500 mb-2">
-                  Status:{" "}
-                  <span className="text-green-600 font-medium">Available</span>
-                </p>
 
-                {/* Author info */}
+                {/* Author Info */}
                 <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                   <img
                     src={
@@ -215,28 +214,24 @@ const ManageFoods = () => {
                   name="food_name"
                   defaultValue={selectedFood.food_name}
                   className="input input-bordered w-full"
-                  placeholder="Food Name"
                   required
                 />
                 <input
                   name="food_image"
                   defaultValue={selectedFood.food_image}
                   className="input input-bordered w-full"
-                  placeholder="Food Image URL"
                   required
                 />
                 <input
                   name="food_quantity"
                   defaultValue={selectedFood.food_quantity}
                   className="input input-bordered w-full"
-                  placeholder="Quantity"
                   required
                 />
                 <input
                   name="pickup_location"
                   defaultValue={selectedFood.pickup_location}
                   className="input input-bordered w-full"
-                  placeholder="Location"
                   required
                 />
                 <input
@@ -250,7 +245,6 @@ const ManageFoods = () => {
                   name="additional_notes"
                   defaultValue={selectedFood.additional_notes}
                   className="textarea textarea-bordered w-full"
-                  placeholder="Notes"
                 ></textarea>
 
                 <button
