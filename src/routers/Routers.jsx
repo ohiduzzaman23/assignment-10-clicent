@@ -17,6 +17,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    hydrateFallbackElement: <p>Loading...</p>,
     children: [
       {
         path: "/",
