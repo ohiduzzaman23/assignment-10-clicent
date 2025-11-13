@@ -27,11 +27,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/available-foods",
-        element: (
-          <PrivateRoute>
-            <AvailableFoods></AvailableFoods>
-          </PrivateRoute>
-        ),
+        element: <AvailableFoods></AvailableFoods>,
         loader: () =>
           fetch("https://assignment-10-server-tau-tan.vercel.app/foods"),
       },

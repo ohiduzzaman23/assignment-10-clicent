@@ -95,3 +95,4 @@ cd client && npm install && npm run dev
 \*\* Developer
 Author: []  
 Project: Community Food Sharing (PlateShare)
+live link: http://abcdinquisitive-event.surge.sh/
