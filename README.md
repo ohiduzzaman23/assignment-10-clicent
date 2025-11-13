@@ -1,16 +1,97 @@
-# React + Vite
+Community Food Sharing (PlateShare)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A MERN Stack project that connects people who have extra food with those who need it — helping reduce food waste and build community support.
 
-Currently, two official plugins are available:
+\*\*Layout
+Navbar
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Guest: Home, Available Foods, Login
+- User: Home, Available Foods, Add Food, Manage My Foods, My Requests, Logout
+  \*\* Logo, Copyright, Social Links
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+\*\* Home Page
 
-## Expanding the ESLint configuration
+- Hero Section with banner and “View All Foods” button
+- Featured Foods (Top 6 by quantity)
+- “Show All” button → Available Foods
+- 2 Static Sections: _How It Works_, _Our Mission_
+- Animations via \_\_Framer Motion / AOS
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+\*\* Authentication (Firebase)
+
+- Register: Name, Email, Photo URL, Password (with validation)
+- Login: Email + Password
+- Google Login support
+
+---
+
+\*\* Food Management (MongoDB)
+
+\*\*Add Food (Private):\*\*  
+ Form with Food Name, Image (imgbb), Quantity, Pickup Location, Expire Date, Notes
+
+- Auto Donator Info from Firebase
+- `food_status = "Available"`
+
+- Available Foods (Public):
+  Grid cards with food info + “View Details” (Private route)
+
+- Food Details (Private):
+  Full info + “Request Food” Modal
+
+- Manage My Foods (Private):
+  Update (Modal/Page) & Delete (SweetAlert)
+
+---
+
+\*\* Food Request System
+
+- On “Request Food”: Modal → Location, Reason, Contact No.
+- Saves to `requests` collection with status `"pending"`
+- Food Owner sees table of requests:
+  - Accept: status → `"accepted"`, food → `"donated"`
+  - Reject: status → `"rejected"`
+
+---
+
+\*\* Extras
+
+- Loading Spinner / Skeleton
+- 404 Page (image + Back to Home)
+- Fully Responsive
+- Uniform design, consistent fonts & buttons
+
+---
+
+\*\* Tech Stack
+
+Frontend: React, Tailwind CSS, React Router, AOS  
+Backend: Node.js, Express.js  
+DB: MongoDB (Atlas)  
+Auth: Firebase  
+Image Hosting: imgbb  
+UI Alerts: React Hot Toast, SweetAlert2
+
+---
+
+**Backend**
+
+\*\* bash
+cd server && npm install && npm start
+
+````
+\*\* Frontend
+
+```bash
+cd client && npm install && npm run dev
+````
+
+---
+
+\*\* Developer
+Author: []  
+Project: Community Food Sharing (PlateShare)
