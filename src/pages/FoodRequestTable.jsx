@@ -38,7 +38,7 @@ const FoodRequestTable = ({ foodId }) => {
 
         setRequests((prev) =>
           prev.map((req) =>
-            req._id === id ? { ...req, status: "accepted" } : req
+            req._id === id ? { ...req, status: "donated" } : req
           )
         );
       }
@@ -53,7 +53,7 @@ const FoodRequestTable = ({ foodId }) => {
       const res = await fetch(`http://localhost:3000/foodRequests/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "rejected" }),
+        body: JSON.stringify({ status: "donated" }),
       });
       const data = await res.json();
 
