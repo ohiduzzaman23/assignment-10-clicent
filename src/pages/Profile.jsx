@@ -13,10 +13,7 @@ const Profile = () => {
         </p>
 
         <div className="mt-10">
-          <button
-            //   onClick={handleNotify}
-            className="btn my-btn animate-[pulse_2s_infinite]"
-          >
+          <button className="btn my-btn animate-[pulse_2s_infinite]">
             Notify Me
           </button>
         </div>
