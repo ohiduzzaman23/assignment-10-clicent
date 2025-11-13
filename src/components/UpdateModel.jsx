@@ -20,7 +20,7 @@ const UpdateModel = () => {
       additional_notes: e.target.notes.value,
     };
 
-    fetch(`http://localhost:3000/foods/${food._id}`, {
+    fetch(`https://assignment-10-server-tau-tan.vercel.app/foods/${food._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

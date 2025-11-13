@@ -29,7 +29,7 @@ const AddFood = () => {
       authorEmail: user.email,
     };
 
-    fetch("http://localhost:3000/foods", {
+    fetch("https://assignment-10-server-tau-tan.vercel.app/foods", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

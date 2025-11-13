@@ -21,7 +21,8 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:3000/latest-foods"),
+        loader: () =>
+          fetch("https://assignment-10-server-tau-tan.vercel.app/latest-foods"),
       },
       {
         path: "/available-foods",
@@ -30,7 +31,8 @@ export const router = createBrowserRouter([
             <AvailableFoods></AvailableFoods>
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:3000/foods"),
+        loader: () =>
+          fetch("https://assignment-10-server-tau-tan.vercel.app/foods"),
       },
       {
         path: "/profile",
@@ -64,7 +66,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/foods/${params.id}`),
+          fetch(
+            `https://assignment-10-server-tau-tan.vercel.app/foods/${params.id}`
+          ),
       },
       {
         path: "/update-foods/:id",
@@ -74,7 +78,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/foods/${params.id}`),
+          fetch(
+            `https://assignment-10-server-tau-tan.vercel.app/foods/${params.id}`
+          ),
       },
       {
         path: "/manage-foods",

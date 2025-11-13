@@ -37,7 +37,7 @@ const FoodDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/foods/${_id}`, {
+        fetch(`https://assignment-10-server-tau-tan.vercel.app/foods/${_id}`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         })
@@ -78,7 +78,7 @@ const FoodDetails = () => {
       status: "pending",
     };
 
-    fetch("http://localhost:3000/foodRequests", {
+    fetch("https://assignment-10-server-tau-tan.vercel.app/foodRequests", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newRequest),

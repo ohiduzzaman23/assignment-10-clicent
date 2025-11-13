@@ -6,7 +6,9 @@ const FoodRequestTable = ({ foodId }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/foodRequests?foodId=${foodId}`)
+    fetch(
+      `https://assignment-10-server-tau-tan.vercel.app/foodRequests?foodId=${foodId}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setRequests(data);
@@ -20,21 +22,27 @@ const FoodRequestTable = ({ foodId }) => {
 
   const handleAccept = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3000/foodRequests/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "accepted" }),
-      });
+      const res = await fetch(
+        `https://assignment-10-server-tau-tan.vercel.app/foodRequests/${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "accepted" }),
+        }
+      );
       const data = await res.json();
 
       if (data.modifiedCount > 0) {
         Swal.fire("Accepted!", "Food request has been accepted.", "success");
 
-        await fetch(`http://localhost:3000/foods/${foodId}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ food_status: "donated" }),
-        });
+        await fetch(
+          `https://assignment-10-server-tau-tan.vercel.app/foods/${foodId}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ food_status: "donated" }),
+          }
+        );
 
         setRequests((prev) =>
           prev.map((req) =>
@@ -50,11 +58,14 @@ const FoodRequestTable = ({ foodId }) => {
 
   const handleReject = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3000/foodRequests/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "donated" }),
-      });
+      const res = await fetch(
+        `https://assignment-10-server-tau-tan.vercel.app/foodRequests/${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "donated" }),
+        }
+      );
       const data = await res.json();
 
       if (data.modifiedCount > 0) {

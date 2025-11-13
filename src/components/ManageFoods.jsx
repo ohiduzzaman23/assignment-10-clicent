@@ -15,7 +15,9 @@ const ManageFoods = () => {
     if (!user?.email) return;
 
     setLoading(true);
-    fetch(`http://localhost:3000/manage-foods?authorEmail=${user.email}`)
+    fetch(
+      `https://assignment-10-server-tau-tan.vercel.app/manage-foods?authorEmail=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setFoods(data);
@@ -31,7 +33,9 @@ const ManageFoods = () => {
   const handleDelete = (id) => {
     if (!confirm("Are you sure you want to delete this food?")) return;
 
-    fetch(`http://localhost:3000/foods/${id}`, { method: "DELETE" })
+    fetch(`https://assignment-10-server-tau-tan.vercel.app/foods/${id}`, {
+      method: "DELETE",
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
@@ -57,11 +61,14 @@ const ManageFoods = () => {
       additional_notes: form.additional_notes.value,
     };
 
-    fetch(`http://localhost:3000/foods/${selectedFood._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedData),
-    })
+    fetch(
+      `https://assignment-10-server-tau-tan.vercel.app/foods/${selectedFood._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.result.modifiedCount > 0 || data.result.matchedCount > 0) {
